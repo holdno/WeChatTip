@@ -14,58 +14,58 @@ var eventListener = {
 	// 发布者
 	// event: 事件名称  data: 传递参数
 	emit (event, data) {
-		var store = this._store
-		var eventLength = store.length
-		for (var i = 0; i < eventLength; i++) {
-			if(event == store[i].event){
-				this._store[i].callback(data)
-				break
-			}
-			if (i >= eventLength) {
-				if (this.debug) console.error('Emit error: The event is not defined')
-			}
+	    var store = this._store
+	    var eventLength = store.length
+	    for (var i = 0; i < eventLength; i++) {
+		if(event == store[i].event){
+		    this._store[i].callback(data)
+		    break
 		}
+		if (i >= eventLength) {
+		    if (this.debug) console.error('Emit error: The event is not defined')
+		}
+	    }
 	},
 	// 订阅者
 	// event: 事件名称  method: function实例
 	on (event, method) {
-		var store = this._store
-		var eventLength = store.length
-		for (var i = 0; i < eventLength; i++) {
-			if (event === store[i].event) {
-				if (this.debug) console.error('Listener error: The event name is existed')
-				return false
-			}
+	    var store = this._store
+	    var eventLength = store.length
+	    for (var i = 0; i < eventLength; i++) {
+		if (event === store[i].event) {
+		    if (this.debug) console.error('Listener error: The event name is existed')
+		    return false
 		}
-		if (event && method) {
-	        if (this.debug) console.log("Add new listener: " + event)
-	        var newListener = {
-	            event: event,
-	            callback: method
-	        }
-	        this._store.push(newListener)
+	    }
+	    if (event && method) {
+		if (this.debug) console.log("Add new listener: " + event)
+		    var newListener = {
+			event: event,
+			callback: method
+		    }
+		this._store.push(newListener)
 	    } else {
-	        if (this.debug) console.warn("The two argument must not be empty")
+		if (this.debug) console.warn("The two argument must not be empty")
 	    }
 	},
 	// 取消订阅
 	// event: 方法名称
 	off (event) {
 	    var store = this._store
-		var eventLength = store.length
-		var offSuccess = 0
-		for (var i = 0; i < eventLength; i++) {
-			if(event === store[i].event){
-				store.splice(i, 1)
-				offSuccess = 1
-			}
+	    var eventLength = store.length
+	    var offSuccess = 0
+	    for (var i = 0; i < eventLength; i++) {
+		if(event === store[i].event){
+		    store.splice(i, 1)
+		    offSuccess = 1
+		}
 	    }
 	    if (this.debug) {
-	    	if (offSuccess === 1) {
-		    	console.log("Remove listener: " + event)
-		    } else {
-		    	console.error("Remove listener error:" + event + ' is not defined')
-		    }
+		if (offSuccess === 1) {
+		    console.log("Remove listener: " + event)
+		} else {
+		    console.error("Remove listener error:" + event + ' is not defined')
+		}
 	    }
 	}
 }
