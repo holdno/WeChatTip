@@ -55,7 +55,7 @@ var eventListener = {
 	    var eventLength = store.length
 	    var offSuccess = 0
 	    for (var i = 0; i < eventLength; i++) {
-		if(event === store[i].event){
+		if(store[i] && event === store[i].event){
 		    store.splice(i, 1)
 		    offSuccess = 1
 		}
